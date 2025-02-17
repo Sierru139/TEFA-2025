@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -14,7 +15,19 @@ class LoginController extends Controller
     public function index()
     {
         return view('auth.login');
+    }
 
+    public function store( Request $request)
+    {
+        $attributes = $request->validate([
+            'email'=> 'required',
+            'password'=> 'required',
+        ]);
+
+        Auth::attempt($attributes);
+        $request->session()->regenerate();
+
+        return redirect('/');
     }
 
     /**
@@ -32,10 +45,6 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -77,8 +86,14 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect(route('home', absolute: false));
     }
 }

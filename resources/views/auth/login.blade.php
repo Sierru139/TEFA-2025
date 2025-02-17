@@ -4,12 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Login</title>
 </head>
+<style>
+    body {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    h1 {
+    }
+    label {
+        font-size: 30px;
+    }
+    input {
+        padding: 10px;
+        margin: 10px 0;
+    }
+    button {
+        padding: 10px;
+    }
+</style>
 <body>
-    <h2>Registrasi Cuy</h2>
-        <form action="" method="POST">
+    <h1>Login Cuy</h1>
+        <form action="/login" method="POST">
             @csrf
+
             <label for="email">email:</label>
             <input type="email" id="email" name="email">
 
