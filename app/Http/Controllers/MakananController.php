@@ -26,7 +26,7 @@ class MakananController extends Controller
      */
     public function create()
     {
-        //
+        return view('makanan/create');
     }
 
     /**
@@ -37,7 +37,23 @@ class MakananController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama'=> 'required',
+            'harga'=> 'required',
+            'gambar'=> 'required',
+        ]);
+
+        $makanan = new Makanan;
+
+        $imagePath = $request->file('gambar')->store('makanan', 'public');
+
+        $makanan->nama = $request->nama;
+        $makanan->harga = $request->harga;
+        $makanan->gambar = $imagePath;
+
+        $makanan->save();
+
+        return redirect()->route('makanan.index')->with('success','Sukses Menambahkan');
     }
 
     /**
