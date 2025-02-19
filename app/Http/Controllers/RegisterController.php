@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,6 +14,7 @@ class RegisterController extends Controller
     }
 
     public function store(Request $request){
+        
         request()->validate([
             'name' => ['required'],
             'email' => ['required', 'email'],
@@ -28,7 +29,7 @@ class RegisterController extends Controller
 
         Auth::login($user);
 
-        return redirect('/');
+        return redirect(route('home',  false));
     }
 
 

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Makanan;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class MakananController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,31 +14,9 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('auth.login');
-    }
-
-    public function store( Request $request)
-    {
-        $attributes = $request->validate([
-            'email'=> 'required',
-            'password'=> 'required',
-        ]);
-
-        Auth::attempt($attributes);
-        $request->session()->regenerate();
-
-        return redirect('/');
-    }
-
-    public function destroy(Request $request)
-    {
-        Auth::guard('web')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect(route('home', false));
+        $makanans = Makanan::all();
+        return view('makanan/index', ['makanans' => $makanans]);
+        //
     }
 
     /**
@@ -48,6 +26,7 @@ class LoginController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -56,6 +35,10 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function store(Request $request)
+    {
+        //
+    }
 
     /**
      * Display the specified resource.
@@ -97,5 +80,8 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
+    public function destroy($id)
+    {
+        //
+    }
 }
