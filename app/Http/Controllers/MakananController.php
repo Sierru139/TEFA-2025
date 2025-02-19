@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Makanan;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
 class MakananController extends Controller
 {
     /**
@@ -75,7 +77,8 @@ class MakananController extends Controller
      */
     public function edit($id)
     {
-        //
+        $makanans = Makanan::find($id);
+        return view('makanan/edit', ['makanans'=> $makanans]);
     }
 
     /**
@@ -87,7 +90,32 @@ class MakananController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama'=> 'required',
+            'harga'=> 'required',
+            'gambar'=> 'nullable',
+        ]);
+
+        $makanan = Makanan::find($id);
+
+        if(isset($request->gambar_new)){
+            if(isset($makanan->gambar)){
+                Storage::delete($makanan->gambar);
+            }
+            $makanan->gambar = $request->file('gambar_new')->store('makanan', 'public');
+        }
+
+        if ($request->gambar_new !== null) {
+            $gambarPath = $request->file('gambar_new')->store('makanan', 'public');
+            $makanan->gambar = $gambarPath;
+        }
+
+        $makanan->nama = $request->nama;
+        $makanan->harga = $request->harga;
+
+        $makanan->save();
+
+        return redirect()->route('makanan.index')->with('success','Sukses Mengubah!');
     }
 
     /**

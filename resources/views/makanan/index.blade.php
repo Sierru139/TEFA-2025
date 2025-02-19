@@ -8,16 +8,19 @@
 </head>
 <body>
     <div>
+        <a href="/makanan/buat">Tambahkan menu</a>
+
         <h3>Daftar makanan :</h3>
-        <img width="100px" src="/imgs/naspad.jpg" alt="">
-        <h4>Nasi Padang</h4>
-        <p>Rp30.000</p>
 
         @foreach ($makanans as $makanan)
-        <img width="100px" src="{{ $makanan->gambar }}" alt="">
+        <p>--------------</p>
+        <img width="100px" src="/storage/{{ $makanan->gambar }}" alt="">
         <h4>{{ $makanan->nama }}</h4>
         <p>{{ $makanan->harga}}</p>
+        <a href="/makanan/edit/{{$makanan->id}}">Edit</a>
+        <a href="/makanan/hapus/{{$makanan->id}}">Hapus</a>
         @endforeach
+
     </div>
 </body>
 </html>

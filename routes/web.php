@@ -28,4 +28,10 @@ Route::post('/login', [LoginController::class, 'store']);
 
 Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 
+
 Route::get('/makanan', [MakananController::class, 'index'])->name('makanan.index');
+Route::get('/makanan/buat', [MakananController::class, 'create'])->name('makanan.create');
+Route::post('/makanan', [MakananController::class, 'store']);
+
+Route::get('/makanan/edit/{id}', [MakananController::class, 'edit'])->name('makanan.edit');
+Route::post('/makanan/edit/{id}', [MakananController::class, 'update'])->name('makanan.update');

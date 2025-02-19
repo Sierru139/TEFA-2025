@@ -8,7 +8,8 @@
 </head>
 <body>
     <h1>Tambahkan Makanan</h1>
-    <form action="/makanan" method="POST" >
+    <form action="/makanan" method="POST" enctype="multipart/form-data">
+        @csrf
         <label for="nama">nama</label>
         <input type="text" name="nama" id="nama">
 
@@ -17,6 +18,8 @@
 
         <label for="gambar">gambar</label>
         <input type="file" name="gambar" id="gambar">
+
+        <button>Simpan</button>
     </form>
 </body>
 </html>
