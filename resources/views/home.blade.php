@@ -29,6 +29,7 @@
         @auth
             <p>Halo {{auth()->user()->name}}</p>
             <p>SAYA SUDAH LOGIN</p>
+            <a href="/buku">Lihat Buku</a>
             <a href="/logout">Log Out</a>
         @endauth
     </body>

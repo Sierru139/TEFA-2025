@@ -7,16 +7,16 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Edit Makanan</h1>
-    <form action="/makanan/edit/{{$makanans->id}}" method="POST" enctype="multipart/form-data">
+    <h1>Edit Buku</h1>
+    <form action="/buku/edit/{{$bukus->id}}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="nama">nama</label>
-        <input type="text" value="{{$makanans->nama}}" name="nama" id="nama">
+        <input type="text" value="{{$bukus->nama}}" name="nama" id="nama">
 
         <label for="harga">harga</label>
-        <input type="text" value="{{ $makanans->harga }}" name="harga" id="harga">
+        <input type="text" value="{{ $bukus->harga }}" name="harga" id="harga">
 
-        <img src="/storage/{{$makanans->gambar}}" alt="">
+        <img src="/storage/{{$bukus->gambar}}" alt="">
         <p>Gambar saat ini, jika ingin diubah upload gambar dibawah</p>
 
         <label for="gambar_new">gambar</label>

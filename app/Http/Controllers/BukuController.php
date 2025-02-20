@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Makanan;
+use App\Models\Buku;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
 
-class MakananController extends Controller
+class BukuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class MakananController extends Controller
      */
     public function index()
     {
-        $makanans = Makanan::all();
-        return view('makanan/index', ['makanans' => $makanans]);
+        $bukus = Buku::all();
+        return view('buku/index', ['bukus' => $bukus]);
         //
     }
 
@@ -28,7 +28,7 @@ class MakananController extends Controller
      */
     public function create()
     {
-        return view('makanan/create');
+        return view('buku/create');
     }
 
     /**
@@ -45,17 +45,17 @@ class MakananController extends Controller
             'gambar'=> 'required',
         ]);
 
-        $makanan = new Makanan;
+        $buku = new Buku;
 
-        $imagePath = $request->file('gambar')->store('makanan', 'public');
+        $imagePath = $request->file('gambar')->store('buku', 'public');
 
-        $makanan->nama = $request->nama;
-        $makanan->harga = $request->harga;
-        $makanan->gambar = $imagePath;
+        $buku->nama = $request->nama;
+        $buku->harga = $request->harga;
+        $buku->gambar = $imagePath;
 
-        $makanan->save();
+        $buku->save();
 
-        return redirect()->route('makanan.index')->with('success','Sukses Menambahkan');
+        return redirect()->route('buku.index')->with('success','Sukses Menambahkan');
     }
 
     /**
@@ -77,8 +77,8 @@ class MakananController extends Controller
      */
     public function edit($id)
     {
-        $makanans = Makanan::find($id);
-        return view('makanan/edit', ['makanans'=> $makanans]);
+        $bukus = Buku::find($id);
+        return view('buku/edit', ['bukus'=> $bukus]);
     }
 
     /**
@@ -96,26 +96,26 @@ class MakananController extends Controller
             'gambar'=> 'nullable',
         ]);
 
-        $makanan = Makanan::find($id);
+        $buku = Buku::find($id);
 
         if(isset($request->gambar_new)){
-            if(isset($makanan->gambar)){
-                Storage::delete($makanan->gambar);
+            if(isset($buku->gambar)){
+                Storage::delete($buku->gambar);
             }
-            $makanan->gambar = $request->file('gambar_new')->store('makanan', 'public');
+            $buku->gambar =  $request->file('gambar_new')->store('buku', 'public');
         }
 
         if ($request->gambar_new !== null) {
-            $gambarPath = $request->file('gambar_new')->store('makanan', 'public');
-            $makanan->gambar = $gambarPath;
+            $gambarPath = $request->file('gambar_new')->store('buku', 'public');
+            $buku->gambar = $gambarPath;
         }
 
-        $makanan->nama = $request->nama;
-        $makanan->harga = $request->harga;
+        $buku->nama = $request->nama;
+        $buku->harga = $request->harga;
 
-        $makanan->save();
+        $buku->save();
 
-        return redirect()->route('makanan.index')->with('success','Sukses Mengubah!');
+        return redirect()->route('buku.index')->with('success','Sukses Mengubah!');
     }
 
     /**
@@ -126,6 +126,9 @@ class MakananController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bukus = Buku::find($id);
+        $bukus->delete();
+        return redirect()->route('buku.index')->with('success','Sukses Menghapus!');
+
     }
 }

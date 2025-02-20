@@ -7,8 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Tambahkan Makanan</h1>
-    <form action="/makanan" method="POST" enctype="multipart/form-data">
+    <h1>Tambahkan Buku</h1>
+    <form action="/buku" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="nama">nama</label>
         <input type="text" name="nama" id="nama">

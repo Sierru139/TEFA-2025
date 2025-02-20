@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\MakananController;
+use App\Http\Controllers\BukuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,10 +28,13 @@ Route::post('/login', [LoginController::class, 'store']);
 
 Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
 
+Route::group(['prefix' => 'buku'], function () {
+    Route::get('/', [BukuController::class, 'index'])->name('buku.index');
+    Route::get('/buat', [BukuController::class, 'create'])->name('buku.create');
+    Route::post('/', [BukuController::class, 'store']);
 
-Route::get('/makanan', [MakananController::class, 'index'])->name('makanan.index');
-Route::get('/makanan/buat', [MakananController::class, 'create'])->name('makanan.create');
-Route::post('/makanan', [MakananController::class, 'store']);
+    Route::get('/edit/{id}', [BukuController::class, 'edit'])->name('buku.edit');
+    Route::post('/edit/{id}', [BukuController::class, 'update'])->name('buku.update');
 
-Route::get('/makanan/edit/{id}', [MakananController::class, 'edit'])->name('makanan.edit');
-Route::post('/makanan/edit/{id}', [MakananController::class, 'update'])->name('makanan.update');
+    Route::get('/hapus/{id}', [BukuController::class, 'destroy'])->name('buku.delete');
+});
